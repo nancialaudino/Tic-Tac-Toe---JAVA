@@ -18,6 +18,4 @@ public class Cell {
         return owner.getRepresentation();
     }
 
-
-
 }

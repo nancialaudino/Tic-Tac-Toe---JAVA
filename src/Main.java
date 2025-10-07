@@ -1,5 +1,9 @@
 public class Main {
     public static void main(String[] args) {
+        TicTacToe ticTacToe = new TicTacToe();
+        ticTacToe.play();
+
+        /*
         Player player = new Player(" O "); //  " X " or " O "
         TicTacToe ticTacToe = new TicTacToe(player);
 
@@ -12,5 +16,9 @@ public class Main {
 
         System.out.println("After the move:");
         ticTacToe.display();
+
+         */
     }
+
+
 }
