@@ -16,7 +16,9 @@ public class TicTacToe {
             }
         }
     }
-
+    /** Main game loop.
+     * Players take turns until someone wins or the board is full (draw).
+     */
     public void play() {
         Player currentPlayer = player1;
         view.displayBoard(board, SIZE);
@@ -40,6 +42,10 @@ public class TicTacToe {
         view.showMessage("The board is full. End of the game.");
     }
 
+    /**
+     * Checks if all cells are occupied.
+     * @return true if no cell is empty (board full)
+     */
     private boolean isBoardFull() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -48,7 +54,11 @@ public class TicTacToe {
         }
         return true;
     }
-
+    /*
+     * Checks if the given player has aligned 3 marks horizontally, vertically, or diagonally.
+     * @param player the player to check for victory
+     * @return true if the player has won
+     */
     private boolean hasWinner(Player player) {
         String rep = player.getRepresentation();
 
@@ -62,6 +72,7 @@ public class TicTacToe {
         return checkLine(player, 0, 0, 1, 1) || checkLine(player, 0, SIZE - 1, 1, -1);
     }
 
+    /* Helper method to check if three cells in a line belong to the same player. */
     private boolean checkLine(Player player, int startRow, int startCol, int dRow, int dCol) {
         for (int k = 0; k < SIZE; k++) {
             if (!board[startRow + k * dRow][startCol + k * dCol].getRepresentation().equals(player.getRepresentation())) {
@@ -71,6 +82,9 @@ public class TicTacToe {
         return true;
     }
 
+    /**
+     * Assigns ownership of a cell to a given player. Throws an exception if coordinates are invalid.
+     */
     public void setOwner(int row, int col, Player player) {
         board[row][col].setOwner(player);
     }

@@ -1,5 +1,5 @@
 public class Cell {
-    private Player owner; // null si libre
+    private Player owner; // null if its free
 
     public Cell() {
         this.owner = null;
