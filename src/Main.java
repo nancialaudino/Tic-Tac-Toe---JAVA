@@ -1,23 +1,15 @@
 public class Main {
     public static void main(String[] args) {
-        TicTacToe ticTacToe = new TicTacToe();
-        ticTacToe.play();
+        // Example 1: 2 Human Players
+         TicTacToe game = new TicTacToe(new HumanPlayer(" O "), new HumanPlayer(" X "));
 
-        /*
-        Player player = new Player(" O "); //  " X " or " O "
-        TicTacToe ticTacToe = new TicTacToe(player);
+        // Example 2: Human Player vs Artificial Player
+        //TicTacToe game = new TicTacToe(new HumanPlayer(" O "), new ArtificialPlayer(" X "));
 
-        System.out.println("Initial Board:");
-        ticTacToe.display();
+        // Example 3: 2 Artificial Players
+        // TicTacToe game = new TicTacToe(new ArtificialPlayer(" O "), new ArtificialPlayer(" X "));
 
-        // Ask for a movement and put it in action
-        int[] move = ticTacToe.getMoveFromPlayer();
-        ticTacToe.setOwner(move[0], move[1], player);
-
-        System.out.println("After the move:");
-        ticTacToe.display();
-
-         */
+        game.play();
     }
 
 

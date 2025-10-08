@@ -1,12 +1,7 @@
-public class Player {
-    public String representation; // ex: " X " ou " O "
+public interface Player {
+    String getRepresentation();
+    int[] getMove(TicTacToe game);
 
-    public String getRepresentation() {
-        return this.representation;
-    }
 
-    public Player(String representation) {
-        this.representation = representation;
-    }
 
 }
