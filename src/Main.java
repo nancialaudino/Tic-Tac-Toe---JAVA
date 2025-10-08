@@ -1,16 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        // Example 1: 2 Human Players
-         TicTacToe game = new TicTacToe(new HumanPlayer(" O "), new HumanPlayer(" X "));
+        View view = new View();
+        InteractionUtilisateur interaction = new InteractionUtilisateur(view);
 
-        // Example 2: Human Player vs Artificial Player
-        //TicTacToe game = new TicTacToe(new HumanPlayer(" O "), new ArtificialPlayer(" X "));
-
-        // Example 3: 2 Artificial Players
-        // TicTacToe game = new TicTacToe(new ArtificialPlayer(" O "), new ArtificialPlayer(" X "));
+        Game game = new Game(
+                new HumanPlayer(" O ", interaction),
+                new ArtificialPlayer(" X "), view);
 
         game.play();
-    }
 
+    }
 
 }
