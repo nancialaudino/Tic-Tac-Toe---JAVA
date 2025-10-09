@@ -1,3 +1,6 @@
+package user;
+import game.Cell;
+
 public class View {
     public void displayBoard(Cell[][] board, int size) {
         int sepLen = size * 4 + 1;

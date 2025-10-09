@@ -1,4 +1,7 @@
+package players;
 import java.security.SecureRandom;
+import game.Player;
+import game.Game;
 
 public class ArtificialPlayer implements Player {
     private final String representation;
@@ -14,12 +17,14 @@ public class ArtificialPlayer implements Player {
     }
 
     @Override
-    public int[] getMove(TicTacToe game) {
+    public int[] getMove(Game game) {
+        int rows = game.getBoard().getRows();
+        int cols = game.getBoard().getCols();
         int row, col;
         do {
-            row = random.nextInt(game.SIZE);
-            col = random.nextInt(game.SIZE);
-        } while (!game.board[row][col].isEmpty());
+            row = random.nextInt(rows);
+            col = random.nextInt(cols);
+        } while (!game.getBoard().getCell(row, col).isEmpty());
 
         System.out.println("Artificial player (" + representation + ") plays: " + (row + 1) + " " + (col + 1));
         return new int[]{row, col};

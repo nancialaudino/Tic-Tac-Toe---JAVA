@@ -1,3 +1,8 @@
+package players;
+
+import game.Game;
+import game.Player;
+import user.InteractionUtilisateur;
 
 public class HumanPlayer implements Player {
     private final String representation;
@@ -14,7 +19,10 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public int[] getMove(TicTacToe game) {
-        return interaction.askMove(game.SIZE);
+    public int[] getMove(Game game) {
+        // The InteractionUtilisateur handles user input entirely
+        return interaction.askMove(game);
     }
 }
+
+
