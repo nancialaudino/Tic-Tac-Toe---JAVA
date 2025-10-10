@@ -4,6 +4,8 @@ import game.Player;
 import game.Cell;
 import user.View;
 
+import java.util.Scanner;
+
 public class Puissance4 extends Game {
     private final int inARow = 4; // number of pieces in a row to win
 
@@ -12,14 +14,22 @@ public class Puissance4 extends Game {
     }
 
     @Override
+    protected void initialize() {
+        // Display the initial empty board
+        viewDisplay();
+    }
+
+    @Override
     protected int[] getMoveFromPlayer(Player player) {
-        // Player returns a column index, we calculate row by gravity
-        int col = player.getMove(this)[0];
-        int row = dropToRow(col);
+        // Player returns a row and column, but we only use the column
+        int[] move = player.getMove(this);
+        int col = move[1];           // use only the column
+        int row = dropToRow(col);    // calculate row by gravity
         return new int[]{row, col};
     }
 
     private int dropToRow(int col) {
+        // Find the lowest empty cell in the selected column
         for (int r = board.getRows() - 1; r >= 0; r--) {
             if (board.getCell(r, col).isEmpty()) return r;
         }
@@ -28,7 +38,9 @@ public class Puissance4 extends Game {
 
     @Override
     protected void applyMove(int[] move, Player player) {
+        // Apply the move and display the board
         board.getCell(move[0], move[1]).setOwner(player);
+        viewDisplay();
     }
 
     @Override
@@ -68,6 +80,7 @@ public class Puissance4 extends Game {
     }
 
     private boolean checkLine(Player player, int startRow, int startCol, int dRow, int dCol) {
+        // Check if a line of length inARow belongs to the player
         for (int i = 0; i < inARow; i++) {
             Cell cell = board.getCell(startRow + i * dRow, startCol + i * dCol);
             if (cell.isEmpty() || !cell.getOwner().getRepresentation().equals(player.getRepresentation())) {
@@ -81,5 +94,6 @@ public class Puissance4 extends Game {
     protected void onDraw() {
         System.out.println("The board is full. It's a draw!");
     }
+
 
 }

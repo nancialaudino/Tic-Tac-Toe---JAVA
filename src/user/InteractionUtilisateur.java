@@ -52,5 +52,19 @@ public class InteractionUtilisateur {
         }
     }
 
+    public int getColumnForPuissance4() {
+        Scanner scanner = new Scanner(System.in);
+        int col = -1;
+        while (col < 0 || col >= 7) { // columns 0..6
+            System.out.print("Enter column (1-7): ");
+            if (scanner.hasNextInt()) {
+                col = scanner.nextInt() - 1; // convert to 0-based
+            } else {
+                scanner.next();
+            }
+        }
+        return col;
+    }
+
 
 }

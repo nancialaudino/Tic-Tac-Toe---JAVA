@@ -38,7 +38,7 @@ public abstract class Game {
 
     protected void viewDisplay() {
         if (view != null) {
-            view.displayBoard(board.getCells(), board.getCols());
+            view.displayBoard(board.getCells(), board.getRows(), board.getCols());
         }
     }
 
@@ -61,6 +61,10 @@ public abstract class Game {
 
     public Board getBoard() { return board; }
     public Player getCurrentPlayer() { return players[currentPlayerIndex]; }
+
+    protected View getView() {
+        return view;
+    }
 
 }
 

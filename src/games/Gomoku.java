@@ -18,36 +18,66 @@ public class Gomoku extends Game {
     protected void applyMove(int[] move, Player player) {
         getBoard().getCell(move[0], move[1]).setOwner(player);
         // display can be done by external View, or keep it here temporarily:
-        displayBoard();
+        //displayBoard();
     }
 
     @Override
     protected boolean hasWinner(Player player) {
         String rep = player.getRepresentation();
-        int n = getBoard().getRows(); // 3
-        // Rows
+        int n = getBoard().getRows();
+        int target = 5; // número de peças consecutivas necessárias para vencer
+
+        // check rows
         for (int r = 0; r < n; r++) {
-            boolean ok = true;
+            int count = 0;
             for (int c = 0; c < n; c++) {
-                if (!getBoard().getCell(r, c).getRepresentation().equals(rep)) { ok = false; break; }
+                if (getBoard().getCell(r, c).getRepresentation().equals(rep)) {
+                    count++;
+                    if (count == target) return true;
+                } else {
+                    count = 0;
+                }
             }
-            if (ok) return true;
         }
-        // Cols
+
+        // check columns
         for (int c = 0; c < n; c++) {
-            boolean ok = true;
+            int count = 0;
             for (int r = 0; r < n; r++) {
-                if (!getBoard().getCell(r, c).getRepresentation().equals(rep)) { ok = false; break; }
+                if (getBoard().getCell(r, c).getRepresentation().equals(rep)) {
+                    count++;
+                    if (count == target) return true;
+                } else {
+                    count = 0;
+                }
             }
-            if (ok) return true;
         }
-        // Diagonals
-        boolean ok = true;
-        for (int i = 0; i < n; i++) if (!getBoard().getCell(i, i).getRepresentation().equals(rep)) { ok = false; break; }
-        if (ok) return true;
-        ok = true;
-        for (int i = 0; i < n; i++) if (!getBoard().getCell(i, n - 1 - i).getRepresentation().equals(rep)) { ok = false; break; }
-        return ok;
+
+        // check diagonals
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                if (checkDirection(r, c, 1, 1, rep, target)) return true;  // diagonal ↘
+                if (checkDirection(r, c, 1, -1, rep, target)) return true; // diagonal ↙
+            }
+        }
+
+        return false;
+    }
+
+    // helper
+    private boolean checkDirection(int r, int c, int dr, int dc, String rep, int target) {
+        int n = getBoard().getRows();
+        int count = 0;
+        for (int i = 0; i < target; i++) {
+            int nr = r + dr * i, nc = c + dc * i;
+            if (nr < 0 || nc < 0 || nr >= n || nc >= n) return false;
+            if (getBoard().getCell(nr, nc).getRepresentation().equals(rep)) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count == target;
     }
 
     // Temporary simple console display (you can replace by View later)

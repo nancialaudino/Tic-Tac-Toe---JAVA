@@ -19,7 +19,7 @@ public class TicTacToe extends Game {
     protected void applyMove(int[] move, Player player) {
         getBoard().getCell(move[0], move[1]).setOwner(player);
         // display can be done by external View, or keep it here temporarily:
-        displayBoard();
+        //displayBoard();
     }
 
     @Override

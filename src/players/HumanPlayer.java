@@ -2,6 +2,7 @@ package players;
 
 import game.Game;
 import game.Player;
+import games.Puissance4;
 import user.InteractionUtilisateur;
 
 public class HumanPlayer implements Player {
@@ -21,8 +22,14 @@ public class HumanPlayer implements Player {
     @Override
     public int[] getMove(Game game) {
         // The InteractionUtilisateur handles user input entirely
-        return interaction.askMove(game);
+        if (game instanceof Puissance4) {
+            int col = interaction.getColumnForPuissance4();
+            return new int[]{0, col};
+        } else {
+            return interaction.askMove(game);
+        }
     }
 }
+
 
 
