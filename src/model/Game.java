@@ -1,14 +1,13 @@
-package game;
-
-import user.View;
+package model;
+import view.View;
 
 public abstract class Game {
     protected final Board board;
     protected final Player[] players;
-    private final View view;
+    private final view.View view;
     protected int currentPlayerIndex = 0;
 
-    protected Game(int rows, int cols, Player p1, Player p2, View view) {
+    protected Game(int rows, int cols, Player p1, Player p2, view.View view) {
         this.board = new Board(rows, cols);
         this.players = new Player[] { p1, p2 };
         this.view = view;
@@ -44,12 +43,12 @@ public abstract class Game {
 
     protected void initialize() { /* optional override */ }
 
-    protected int[] getMoveFromPlayer(Player player) {
+    public int[] getMoveFromPlayer(Player player) {
         return player.getMove(this);
     }
 
-    protected abstract void applyMove(int[] move, Player player);
-    protected abstract boolean hasWinner(Player player);
+    public abstract void applyMove(int[] move, Player player);
+    public abstract boolean hasWinner(Player player);
 
     protected void onWin(Player player) {
         System.out.println("Winner: " + player.getRepresentation());
@@ -62,10 +61,13 @@ public abstract class Game {
     public Board getBoard() { return board; }
     public Player getCurrentPlayer() { return players[currentPlayerIndex]; }
 
-    protected View getView() {
+    protected view.View getView() {
         return view;
     }
 
+    public void nextPlayer() {
+        currentPlayerIndex = 1 - currentPlayerIndex;
+    }
 }
 
 

@@ -1,7 +1,5 @@
-package players;
+package model;
 import java.security.SecureRandom;
-import game.Player;
-import game.Game;
 
 public class ArtificialPlayer implements Player {
     private final String representation;

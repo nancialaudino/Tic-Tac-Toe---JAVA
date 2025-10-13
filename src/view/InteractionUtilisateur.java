@@ -1,7 +1,8 @@
-package user;
+package view;
+
+import model.Game;
 
 import java.util.Scanner;
-import game.Game;
 
 public class InteractionUtilisateur {
     private final Scanner scanner = new Scanner(System.in);

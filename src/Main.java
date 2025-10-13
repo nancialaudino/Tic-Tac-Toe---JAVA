@@ -1,12 +1,11 @@
-import games.Gomoku;
-import games.Puissance4;
-import games.TicTacToe;
-import players.ArtificialPlayer;
-import players.HumanPlayer;
-import user.InteractionUtilisateur;
-import user.View;
+import model.Gomoku;
+import model.Puissance4;
+import model.TicTacToe;
+import model.ArtificialPlayer;
+import model.HumanPlayer;
+
 import java.util.Scanner;
-import game.Game;
+import model.Game;
 
 
 public class Main {
@@ -14,8 +13,8 @@ public class Main {
     public static boolean unfinished = true;
     public static void main(String[] args) {
 
-        View view = new View();
-        InteractionUtilisateur interaction = new InteractionUtilisateur(view);
+        view.View view = new view.View();
+        view.InteractionUtilisateur interaction = new view.InteractionUtilisateur(view);
 
         while (true) {
             System.out.println(" Game Library ");

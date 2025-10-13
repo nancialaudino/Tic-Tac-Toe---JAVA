@@ -1,31 +1,27 @@
-package games;
-
-import game.Game;
-import game.Player;
-import user.View;
+package model;
 
 public class Gomoku extends Game {
-    public  Gomoku (Player p1, Player p2, View view) {
+    public  Gomoku (Player p1, Player p2, view.View view) {
         super(15, 15, p1, p2, view);
     }
 
     @Override
-    protected int[] getMoveFromPlayer(Player player) {
+    public int[] getMoveFromPlayer(Player player) {
         return player.getMove(this);
     }
 
     @Override
-    protected void applyMove(int[] move, Player player) {
+    public void applyMove(int[] move, Player player) {
         getBoard().getCell(move[0], move[1]).setOwner(player);
         // display can be done by external View, or keep it here temporarily:
         //displayBoard();
     }
 
     @Override
-    protected boolean hasWinner(Player player) {
+    public boolean hasWinner(Player player) {
         String rep = player.getRepresentation();
         int n = getBoard().getRows();
-        int target = 5; // número de peças consecutivas necessárias para vencer
+        int target = 5;
 
         // check rows
         for (int r = 0; r < n; r++) {

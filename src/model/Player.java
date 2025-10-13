@@ -1,5 +1,4 @@
-package game;
-import games.Puissance4;
+package model;
 
 public interface Player {
     String getRepresentation();

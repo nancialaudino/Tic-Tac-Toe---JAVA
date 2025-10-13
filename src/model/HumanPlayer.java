@@ -1,15 +1,10 @@
-package players;
-
-import game.Game;
-import game.Player;
-import games.Puissance4;
-import user.InteractionUtilisateur;
+package model;
 
 public class HumanPlayer implements Player {
     private final String representation;
-    private final InteractionUtilisateur interaction;
+    private final view.InteractionUtilisateur interaction;
 
-    public HumanPlayer(String representation, InteractionUtilisateur interaction) {
+    public HumanPlayer(String representation, view.InteractionUtilisateur interaction) {
         this.representation = representation;
         this.interaction = interaction;
     }

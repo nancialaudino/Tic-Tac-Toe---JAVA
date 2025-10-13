@@ -1,15 +1,9 @@
-package games;
-import game.Game;
-import game.Player;
-import game.Cell;
-import user.View;
-
-import java.util.Scanner;
+package model;
 
 public class Puissance4 extends Game {
     private final int inARow = 4; // number of pieces in a row to win
 
-    public Puissance4(Player p1, Player p2, View view) {
+    public Puissance4(Player p1, Player p2, view.View view) {
         super(6, 7, p1, p2, view); // 6 rows, 7 columns
     }
 
@@ -20,7 +14,7 @@ public class Puissance4 extends Game {
     }
 
     @Override
-    protected int[] getMoveFromPlayer(Player player) {
+    public int[] getMoveFromPlayer(Player player) {
         // Player returns a row and column, but we only use the column
         int[] move = player.getMove(this);
         int col = move[1];           // use only the column
@@ -37,14 +31,14 @@ public class Puissance4 extends Game {
     }
 
     @Override
-    protected void applyMove(int[] move, Player player) {
+    public void applyMove(int[] move, Player player) {
         // Apply the move and display the board
         board.getCell(move[0], move[1]).setOwner(player);
         viewDisplay();
     }
 
     @Override
-    protected boolean hasWinner(Player player) {
+    public boolean hasWinner(Player player) {
         int rows = board.getRows();
         int cols = board.getCols();
 
