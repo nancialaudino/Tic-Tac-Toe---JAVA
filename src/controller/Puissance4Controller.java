@@ -13,44 +13,11 @@ public class Puissance4Controller extends GameController {
     @Override
     public void startGame() {
         state = GameState.INITIAL;
-        displayBoard();
+        view.displayBoard(game.getBoard().getCells(), game.getBoard().getRows(), game.getBoard().getCols());
         state = GameState.WAITING_MOVE;
 
         while (state != GameState.WIN && state != GameState.DRAW) {
             nextMove();
-        }
-    }
-
-    @Override
-    protected void nextMove() {
-        Player current = game.getCurrentPlayer();
-        int[] move = game.getMoveFromPlayer(current);
-        game.applyMove(move, current);
-        displayBoard();
-
-        if (game.hasWinner(current)) {
-            state = GameState.WIN;
-            endGame();
-        } else if (game.getBoard().isFull()) {
-            state = GameState.DRAW;
-            endGame();
-        } else {
-
-            game.nextPlayer();
-        }
-    }
-
-    @Override
-    protected void checkWinner() {
-
-    }
-
-    @Override
-    protected void endGame() {
-        if (state == GameState.WIN) {
-            System.out.println("Winner: " + game.getCurrentPlayer().getRepresentation());
-        } else if (state == GameState.DRAW) {
-            System.out.println("Draw");
         }
     }
 }

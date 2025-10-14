@@ -2,6 +2,7 @@ package controller;
 
 import model.Game;
 import view.View;
+import model.Player;
 
 public abstract class GameController {
     protected final Game game;
@@ -15,10 +16,35 @@ public abstract class GameController {
     }
 
     public abstract void startGame();
-    protected abstract void nextMove();
-    protected abstract void checkWinner();
-    protected void displayBoard() {
+
+    /* Template method for next move */
+    protected void nextMove() {
+        Player current = game.getCurrentPlayer();
+        int[] move = current.getMove(game); // avoid instanceof, delegate to Player
+        game.applyMove(move, current);
         view.displayBoard(game.getBoard().getCells(), game.getBoard().getRows(), game.getBoard().getCols());
+        checkWinner(current);
     }
-    protected abstract void endGame();
+
+    /* Check if the current player has won or draw, update state */
+    protected void checkWinner(Player player) {
+        if (game.hasWinner(player)) {
+            state = GameState.WIN;
+            endGame();
+        } else if (game.getBoard().isFull()) {
+            state = GameState.DRAW;
+            endGame();
+        } else {
+            game.nextPlayer();
+            state = GameState.WAITING_MOVE;
+        }
+    }
+
+    protected void endGame() {
+        if (state == GameState.WIN) {
+            view.showMessage("Winner: " + game.getCurrentPlayer().getRepresentation());
+        } else if (state == GameState.DRAW) {
+            view.showMessage("Draw");
+        }
+    }
 }

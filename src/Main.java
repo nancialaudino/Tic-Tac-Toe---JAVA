@@ -3,18 +3,21 @@ import model.Puissance4;
 import model.TicTacToe;
 import model.ArtificialPlayer;
 import model.HumanPlayer;
+import model.Game;
+import controller.*;
+import view.View;
+import view.InteractionUtilisateur;
 
 import java.util.Scanner;
-import model.Game;
-
 
 public class Main {
     public static final Scanner scanner = new Scanner(System.in);
     public static boolean unfinished = true;
+
     public static void main(String[] args) {
 
-        view.View view = new view.View();
-        view.InteractionUtilisateur interaction = new view.InteractionUtilisateur(view);
+        View view = new View();
+        InteractionUtilisateur interaction = new InteractionUtilisateur(view, scanner);
 
         while (true) {
             System.out.println(" Game Library ");
@@ -26,26 +29,30 @@ public class Main {
             String option = scanner.nextLine().trim();
             boolean gamePlayed = false;
 
+            GameController controller = null;
+
             switch (option) {
                 case "1":
-                    Game tictactoe = new TicTacToe(
+                    TicTacToe tttGame = new TicTacToe(
                             new HumanPlayer(" O ", interaction),
                             new ArtificialPlayer(" X "), view);
-                    tictactoe.play();
+                    controller = new TicTacToeController(tttGame, view);
                     gamePlayed = true;
                     break;
 
                 case "2":
-                    Game gomoku = new Gomoku (new HumanPlayer(" O ", interaction),
-                        new ArtificialPlayer(" X "), view);
-                    gomoku.play();
+                    Gomoku gomokuGame = new Gomoku(
+                            new HumanPlayer(" O ", interaction),
+                            new ArtificialPlayer(" X "), view);
+                    controller = new GomokuController(gomokuGame, view);
                     gamePlayed = true;
                     break;
 
                 case "3":
-                    Game puissance4 = new Puissance4(new HumanPlayer(" O ", interaction),
+                    Puissance4 puissance4Game = new Puissance4(
+                            new HumanPlayer(" O ", interaction),
                             new ArtificialPlayer(" X "), view);
-                    puissance4.play();
+                    controller = new Puissance4Controller(puissance4Game, view);
                     gamePlayed = true;
                     break;
 
@@ -53,7 +60,9 @@ public class Main {
                     System.out.println("Insert a valid option!");
             }
 
-            if (gamePlayed) {
+            if (gamePlayed && controller != null) {
+                controller.startGame();
+
                 while (true) {
                     System.out.println("\nDo you want to play again?");
                     System.out.println("0 - Yes");
@@ -72,5 +81,5 @@ public class Main {
                 }
             }
         }
-        }
     }
+}

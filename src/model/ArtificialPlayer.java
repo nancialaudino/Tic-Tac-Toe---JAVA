@@ -24,7 +24,6 @@ public class ArtificialPlayer implements Player {
             col = random.nextInt(cols);
         } while (!game.getBoard().getCell(row, col).isEmpty());
 
-        System.out.println("Artificial player (" + representation + ") plays: " + (row + 1) + " " + (col + 1));
         return new int[]{row, col};
     }
 
