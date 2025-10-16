@@ -14,6 +14,7 @@ public class InteractionUtilisateur {
     }
 
     // General method for row+col games (TicTacToe, Gomoku)
+    /*
     public int[] askMove(Game game) {
         int rows = game.getBoard().getRows();
         int cols = game.getBoard().getCols();
@@ -37,6 +38,47 @@ public class InteractionUtilisateur {
                 return new int[]{r, c};
             } catch (NumberFormatException e) {
                 view.showMessage("Invalid input. Please use integer numbers.");
+            }
+        }
+    }
+
+     */
+
+
+    public int[] askMove(Game game) {
+        int rows = game.getBoard().getRows();
+        int cols = game.getBoard().getCols();
+
+        while (true) {
+            try {
+                view.showMessage("Enter row (1-" + rows + ") and column (1-" + cols + ") separated by a space: ");
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) {
+                    view.showMessage("Input cannot be empty. Try again.");
+                    continue;
+                }
+                String[] parts = line.split("\\s+");
+                if (parts.length != 2) {
+                    view.showMessage("Please enter two integers separated by space.");
+                    continue;
+                }
+
+                int row = Integer.parseInt(parts[0]) - 1;
+                int col = Integer.parseInt(parts[1]) - 1;
+
+                if (row < 0 || row >= rows || col < 0 || col >= cols) {
+                    view.showMessage("Coordinates out of bounds. Try again.");
+                    continue;
+                }
+                if (!game.getBoard().getCell(row, col).isEmpty()) {
+                    view.showMessage("Cell already occupied. Choose another.");
+                    continue;
+                }
+                return new int[]{row, col};
+            } catch (NumberFormatException e) {
+                view.showMessage("Invalid format. Use numbers only.");
+            } catch (Exception e) {
+                view.showMessage("Unexpected error: " + e.getMessage());
             }
         }
     }

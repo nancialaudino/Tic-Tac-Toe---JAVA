@@ -1,13 +1,7 @@
-import model.Gomoku;
-import model.Puissance4;
-import model.TicTacToe;
-import model.ArtificialPlayer;
-import model.HumanPlayer;
-import model.Game;
+import model.*;
 import controller.*;
 import view.View;
 import view.InteractionUtilisateur;
-
 import java.util.Scanner;
 
 public class Main {
@@ -29,40 +23,16 @@ public class Main {
             String option = scanner.nextLine().trim();
             boolean gamePlayed = false;
 
-            GameController controller = null;
+            GameController controller = GameFactory.createController(option, interaction, view);
 
-            switch (option) {
-                case "1":
-                    TicTacToe tttGame = new TicTacToe(
-                            new HumanPlayer(" O ", interaction),
-                            new ArtificialPlayer(" X "), view);
-                    controller = new TicTacToeController(tttGame, view);
-                    gamePlayed = true;
-                    break;
-
-                case "2":
-                    Gomoku gomokuGame = new Gomoku(
-                            new HumanPlayer(" O ", interaction),
-                            new ArtificialPlayer(" X "), view);
-                    controller = new GomokuController(gomokuGame, view);
-                    gamePlayed = true;
-                    break;
-
-                case "3":
-                    Puissance4 puissance4Game = new Puissance4(
-                            new HumanPlayer(" O ", interaction),
-                            new ArtificialPlayer(" X "), view);
-                    controller = new Puissance4Controller(puissance4Game, view);
-                    gamePlayed = true;
-                    break;
-
-                default:
-                    System.out.println("Insert a valid option!");
+            if (controller != null) {
+                controller.startGame();
+                gamePlayed = true;
+            } else {
+                System.out.println("Insert a valid option!");
             }
 
-            if (gamePlayed && controller != null) {
-                controller.startGame();
-
+            if (gamePlayed) {
                 while (true) {
                     System.out.println("\nDo you want to play again?");
                     System.out.println("0 - Yes");
@@ -71,7 +41,7 @@ public class Main {
 
                     String playAgain = scanner.nextLine().trim();
                     if (playAgain.equals("0")) {
-                        break; // volta ao menu principal
+                        break;
                     } else if (playAgain.equals("1")) {
                         System.out.println("Bye Bye");
                         return;

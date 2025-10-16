@@ -11,7 +11,13 @@ public class Board {
         for (int r=0;r<rows;r++) for (int c=0;c<cols;c++) cells[r][c] = new Cell();
     }
 
-    public Cell getCell(int r,int c) { return cells[r][c]; }
+
+    public Cell getCell(int r, int c) {
+        if (r < 0 || r >= rows || c < 0 || c >= cols) {
+            throw new IllegalArgumentException("Invalid cell coordinates: (" + r + "," + c + ")");
+        }
+        return cells[r][c];
+    }
     public int getRows() { return rows; }
     public int getCols() { return cols; }
 

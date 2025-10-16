@@ -8,10 +8,19 @@ public class TicTacToe extends Game {
         super(3, 3, p1, p2, view);
     }
 
-    @Override
-    public void applyMove(int[] move, Player player) {
-        getBoard().getCell(move[0], move[1]).setOwner(player);
+@Override
+public void applyMove(int[] move, Player player) {
+    int row = move[0], col = move[1];
+
+    if (row < 0 || row >= board.getRows() || col < 0 || col >= board.getCols()) {
+        throw new IllegalArgumentException("Invalid move coordinates.");
     }
+    if (!board.getCell(row, col).isEmpty()) {
+        throw new IllegalStateException("Cell already occupied.");
+    }
+
+    board.getCell(row, col).setOwner(player);
+}
 
     @Override
     public boolean hasWinner(Player player) {

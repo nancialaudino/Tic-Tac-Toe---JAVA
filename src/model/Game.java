@@ -2,7 +2,7 @@ package model;
 
 import view.View;
 
-public abstract class Game {
+public abstract class Game implements GameStrategy {
     protected final Board board;
     protected final Player[] players;
     protected final View view;
@@ -15,6 +15,7 @@ public abstract class Game {
     }
 
     // Template method for playing a game
+    @Override
     public void play() {
         displayBoard();
         while (true) {
@@ -38,25 +39,32 @@ public abstract class Game {
     }
 
     // Hook method: subclasses can override
-    protected void initialize() { /* optional override */ }
+    @Override
+    public void initialize() { /* optional override */ }
 
     // Hook method: subclasses can override to customize move input
+    @Override
     public int[] getMoveFromPlayer(Player player) {
         return player.getMove(this);
     }
-
 
     protected void displayBoard() {
         if (view != null) view.displayBoard(board.getCells(), board.getRows(), board.getCols());
     }
 
+    @Override
     public void nextPlayer() { currentPlayerIndex = 1 - currentPlayerIndex; }
 
+    @Override
     public Player getCurrentPlayer() { return players[currentPlayerIndex]; }
 
+    @Override
     public Board getBoard() { return board; }
 
+    @Override
     public abstract void applyMove(int[] move, Player player);
+
+    @Override
     public abstract boolean hasWinner(Player player);
 
     protected void onWin(Player player) {

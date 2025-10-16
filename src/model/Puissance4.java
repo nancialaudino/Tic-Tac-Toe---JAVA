@@ -9,9 +9,21 @@ public class Puissance4 extends Game {
         super(6, 7, p1, p2, view); // 6 rows, 7 columns
     }
 
+
     @Override
     public void applyMove(int[] move, Player player) {
-        board.getCell(move[0], move[1]).setOwner(player);
+        int row = move[0];
+        int col = move[1];
+
+        if (col < 0 || col >= board.getCols()) {
+            throw new IllegalArgumentException("Invalid column: " + (col + 1));
+        }
+
+        if (row == -1 || row >= board.getRows()) {
+            throw new IllegalStateException("Column " + (col + 1) + " is full.");
+        }
+
+        board.getCell(row, col).setOwner(player);
         displayBoard();
     }
 

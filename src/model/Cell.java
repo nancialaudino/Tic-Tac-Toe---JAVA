@@ -1,7 +1,7 @@
 package model;
 
 public class Cell {
-    private Player owner; // null if its free
+    private Player owner; // null if it's free
 
     public Cell() {
         this.owner = null;
@@ -14,6 +14,11 @@ public class Cell {
     public void setOwner(Player player) {
         this.owner = player;
     }
+
+    /**
+     * Method to check if the cell is empty.
+     *
+     */
 
     public boolean isEmpty() {
         return this.owner == null;

@@ -10,10 +10,21 @@ public class Gomoku extends Game {
         return player.getMove(this);
     }
 
+
     @Override
     public void applyMove(int[] move, Player player) {
-        getBoard().getCell(move[0], move[1]).setOwner(player);
-        // display handled by Game.viewDisplay()
+        int row = move[0];
+        int col = move[1];
+
+        if (row < 0 || row >= getBoard().getRows() || col < 0 || col >= getBoard().getCols()) {
+            throw new IllegalArgumentException("Invalid move coordinates.");
+        }
+
+        if (!getBoard().getCell(row, col).isEmpty()) {
+            throw new IllegalStateException("Cell already occupied.");
+        }
+
+        getBoard().getCell(row, col).setOwner(player);
     }
 
     @Override
