@@ -1,7 +1,17 @@
 package view;
 import model.Cell;
 
+/**
+ * Responsible for displaying the game board and messages to the user.
+ */
 public class View {
+    /**
+     * Displays the board in the console.
+     *
+     * @param board The matrix of cells.
+     * @param rows  Number of rows.
+     * @param cols  Number of columns.
+     */
         public void displayBoard(Cell[][] board, int rows, int cols) {
             int sepLen = cols * 4 + 1;
             StringBuilder sbSep = new StringBuilder();
@@ -18,6 +28,12 @@ public class View {
             }
             System.out.println(sep);
         }
+
+    /**
+     * Displays a message to the user.
+     *
+     * @param message The message to show.
+     */
 
         public void showMessage(String message) {
             System.out.println(message);

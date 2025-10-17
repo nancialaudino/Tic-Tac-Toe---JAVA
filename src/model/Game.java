@@ -2,11 +2,20 @@ package model;
 
 import view.View;
 
+/**
+ * Abstract base class representing a generic board game.
+ * Defines the main game loop and common behaviors.
+ */
+
 public abstract class Game implements GameStrategy {
     protected final Board board;
     protected final Player[] players;
     protected final View view;
     protected int currentPlayerIndex = 0;
+
+    /**
+     * Creates a new game with given dimensions, players and view.
+     */
 
     protected Game(int rows, int cols, Player p1, Player p2, View view) {
         this.board = new Board(rows, cols);
@@ -14,7 +23,9 @@ public abstract class Game implements GameStrategy {
         this.view = view;
     }
 
-    // Template method for playing a game
+    /**
+     * Template method: runs the main game loop.
+     */
     @Override
     public void play() {
         displayBoard();
@@ -38,39 +49,60 @@ public abstract class Game implements GameStrategy {
         }
     }
 
-    // Hook method: subclasses can override
+
+
+    /**
+     * Optional hook for subclasses to initialize the game.
+     */
     @Override
     public void initialize() { /* optional override */ }
 
-    // Hook method: subclasses can override to customize move input
+    /**
+     * Gets the next move from a player.
+     */
+
     @Override
     public int[] getMoveFromPlayer(Player player) {
         return player.getMove(this);
     }
 
+    /**
+     * Displays the board through the view.
+     */
+
     protected void displayBoard() {
         if (view != null) view.displayBoard(board.getCells(), board.getRows(), board.getCols());
     }
-
+    /** Switches to the next player. */
     @Override
     public void nextPlayer() { currentPlayerIndex = 1 - currentPlayerIndex; }
+
+    /** Returns the current player. */
 
     @Override
     public Player getCurrentPlayer() { return players[currentPlayerIndex]; }
 
+    /** Returns the game board. */
+
     @Override
     public Board getBoard() { return board; }
+
+    /** Applies a move to the board. */
 
     @Override
     public abstract void applyMove(int[] move, Player player);
 
+    /** Checks if a player has won. */
+
     @Override
     public abstract boolean hasWinner(Player player);
+
+    /** Displays a winning message. */
 
     protected void onWin(Player player) {
         if (view != null) view.showMessage("Winner: " + player.getRepresentation());
     }
-
+    /** Displays a draw message. */
     protected void onDraw() {
         if (view != null) view.showMessage("Draw");
     }

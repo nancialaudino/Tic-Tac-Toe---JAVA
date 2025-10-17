@@ -4,6 +4,11 @@ import model.TicTacToe;
 import model.Player;
 import view.View;
 
+/**
+ * Controller for Tic Tac Toe.
+ * Manages the game loop and updates the view.
+ */
+
 public class TicTacToeController extends GameController {
 
     public TicTacToeController(TicTacToe game, View view) {
